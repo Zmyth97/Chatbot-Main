@@ -26,7 +26,7 @@ public class ChatbotView
 	}
 	
 	/**
-	 * Creates a string from the Chatbot with the availabilty of user input.
+	 * Creates a string from the Chatbot with the availability of user input.
 	 * @param currentInput The Supplied String
 	 * @return The users typed response
 	 */

@@ -14,7 +14,8 @@ public class Chatbot
 	private ArrayList<String> memeList;
 	private String name;
 	private int chatCount;
-
+    private ChatbotUser myUser;
+    
 	/**
 	 * Creates a Chatbot object with the supplied name and initializes the
 	 * current number of chats to 0
@@ -27,6 +28,7 @@ public class Chatbot
 		memeList = new ArrayList<String>();
 		this.name = name;
 		chatCount = 0;
+		myUser = new ChatbotUser();
 		fillTheMemeList();
 	}
 
@@ -35,7 +37,7 @@ public class Chatbot
 	 * 
 	 * @return The current name of the Chatbot
 	 */
-
+	
 	public String getName()
 	{
 		return name;
@@ -50,6 +52,16 @@ public class Chatbot
 	public int getChatCount()
 	{
 		return chatCount;
+	}
+
+	public ChatbotUser getMyUser()
+	{
+		return myUser;
+	}
+
+	public void setMyUser(ChatbotUser myUser)
+	{
+		this.myUser = myUser;
 	}
 
 	/**
@@ -85,8 +97,13 @@ public class Chatbot
 	public String processText(String currentInput)
 	{
 		String result = "";
-
-		int randomPosition = (int) (Math.random() * 3);
+		
+		if(getChatCount() < 7)
+		{
+			//Ask questions about the 4 data members here
+			//will need if's or a switch
+		}
+		int randomPosition = (int) (Math.random() * 4);
 		if (currentInput != null)
 		{
 			if (randomPosition == 0)
@@ -111,7 +128,7 @@ public class Chatbot
 					result = "try again another time";
 				}
 			}
-			else
+			else if (randomPosition == 2)
 			{
 				if (memeChecker(currentInput))
 				{
@@ -122,12 +139,16 @@ public class Chatbot
 					result = "Not a meme, try again";
 				}
 			}
-		}
 			else
 			{
-				result = "use words!";
+				//Talk about the user here
 			}
-
+	    }
+		else
+		{
+			result = "use words!";
+		}
+        updateChatCount();
 		return result;
 	}
 
@@ -192,7 +213,7 @@ public class Chatbot
 	{
 		boolean isTopicOfInterest = false;
 
-		if (input != null && input.toLowerCase().contains("soccer"))
+		if (input != null && (input.toLowerCase().contains("soccer") || input.toLowerCase().contains("Kody")))
 		{
 			isTopicOfInterest = true;
 		}

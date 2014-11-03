@@ -3,6 +3,8 @@ package chatbot.controller;
 import javax.swing.JOptionPane;
 
 import chatbot.model.Chatbot;
+import chatbot.view.ChatbotFrame;
+import chatbot.view.ChatbotPanel;
 import chatbot.view.ChatbotView;
 
 /**
@@ -16,11 +18,16 @@ public class ChatbotAppController
 	private ChatbotView applicationView;
 	private Chatbot mySillyChatbot;
 	private String startMessage;
-	private String quitMessage;
+	private String quitMessage;	
+	private ChatbotFrame appFrame;
 	
+	/**
+	 * Constructor for the AppController. Initializes the Model and View Components
+	 */
 	public ChatbotAppController()
 	{
 		applicationView = new ChatbotView(this);
+		appFrame = new ChatbotFrame(this);
 		mySillyChatbot = new Chatbot("Royal");
 		startMessage = "Welcome to the " + mySillyChatbot.getName() + " Chatbot. What is your name?";
 		quitMessage = "Goodbye Cruel User :(";
@@ -37,15 +44,23 @@ public class ChatbotAppController
 	
 	public void start()
 	{
-		String result = applicationView.showChatbotDialog(startMessage);
-		mySillyChatbot.stringChecker(result);
-		while(!mySillyChatbot.quitChecker(result))
-		{
-			result = mySillyChatbot.processText(result);
-			result = applicationView.showChatbotDialog(result);
-		}
-			quit();
+   	    ((ChatbotPanel) appFrame.getContentPane()).showTextMessage(startMessage);
+       //	ChatbotPanel testPanel = (ChatbotPanel) appFrame.getContentPane();
+       	
 	}
+	
+	public String getChatbotDialog(String input)
+	{
+		String result = "";
+		if(mySillyChatbot.quitChecker(input))
+		{
+			quit();
+		}
+		result = mySillyChatbot.processText(input);
+			
+		return result;
+	}
+	
 	/**
 	 * Uses Quit Checker to see if it can quit, and if so, quits the app.
 	 */
