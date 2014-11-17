@@ -14,6 +14,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.BevelBorder;
 
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * The Interface Design and View, communicates with the base controller.
@@ -41,23 +43,25 @@ public class ChatbotPanel extends JPanel
 	 * The constructor of the panel class, instantiates the different components
 	 * @param baseController The reference to the controller object
 	 */
-	public ChatbotPanel(ChatbotAppController baseController) 
+	public ChatbotPanel(final ChatbotAppController baseController) 
 	{
 		this.baseController = baseController;
 		
+		baseLayout = new SpringLayout();
 		firstButton = new JButton("Click the Button to Chat!");
 		firstButton.setBackground(new Color(153, 153, 153));
-		baseLayout = new SpringLayout();
-		baseLayout.putConstraint(SpringLayout.WEST, firstButton, 110, SpringLayout.WEST, this);
-		baseLayout.putConstraint(SpringLayout.EAST, firstButton, -118, SpringLayout.EAST, this);
-	    chatPane = new JScrollPane();
 	    chatArea = new JTextArea();
+	    chatArea.setBackground(Color.LIGHT_GRAY);
+	    chatPane = new JScrollPane(chatArea);
 	    
 	    setupPane();
 		setupPanel();
 		setupLayout();
 		setupListeners();
 	}
+	/**
+	 * Sets up the pane (doh)
+	 */
 	private void setupPane()
 	{
 		chatArea.setLineWrap(true);
@@ -73,10 +77,6 @@ public class ChatbotPanel extends JPanel
 		this.setLayout(baseLayout);
 		this.add(firstButton);
 		this.add(chatPane);
-		chatArea = new JTextArea(5, 20);
-		baseLayout.putConstraint(SpringLayout.EAST, chatArea, -49, SpringLayout.EAST, this);
-		chatArea.setBackground(new Color(153, 153, 153));
-		add(chatArea);
 		
 	}
 	
@@ -85,14 +85,14 @@ public class ChatbotPanel extends JPanel
 	 */
 	private void setupLayout()
 	{
-	    baseLayout.putConstraint(SpringLayout.NORTH, chatPane, 25, SpringLayout.NORTH, this);
-	    baseLayout.putConstraint(SpringLayout.WEST, chatPane, 200, SpringLayout.WEST, this);
 	    JLabel lblWelcomeToThe = new JLabel("Welcome to the Chatbot 2.0!");
-		baseLayout.putConstraint(SpringLayout.WEST, chatArea, 0, SpringLayout.WEST, lblWelcomeToThe);
+	    baseLayout.putConstraint(SpringLayout.NORTH, lblWelcomeToThe, 37, SpringLayout.NORTH, this);
 		baseLayout.putConstraint(SpringLayout.NORTH, firstButton, 12, SpringLayout.SOUTH, lblWelcomeToThe);
 		baseLayout.putConstraint(SpringLayout.EAST, lblWelcomeToThe, 406, SpringLayout.WEST, this);
-		baseLayout.putConstraint(SpringLayout.NORTH, lblWelcomeToThe, 10, SpringLayout.SOUTH, chatPane);
 		baseLayout.putConstraint(SpringLayout.WEST, lblWelcomeToThe, 49, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.WEST, firstButton, 110, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.EAST, firstButton, -118, SpringLayout.EAST, this);
+	    baseLayout.putConstraint(SpringLayout.NORTH, chatPane, 286, SpringLayout.NORTH, this);
 		lblWelcomeToThe.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 24));
 		lblWelcomeToThe.setForeground(new Color(255, 255, 255));
 		lblWelcomeToThe.setBackground(new Color(255, 51, 51));
@@ -101,16 +101,19 @@ public class ChatbotPanel extends JPanel
 		setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0), 2), new BevelBorder(BevelBorder.LOWERED, null, null, null, null)));
 		
 		lblCopyrightOfZack = new JLabel("Copyright of Zack Moss/Canyons Tech Center");
-		baseLayout.putConstraint(SpringLayout.SOUTH, chatArea, -6, SpringLayout.NORTH, lblCopyrightOfZack);
+		baseLayout.putConstraint(SpringLayout.NORTH, chatPane, -109, SpringLayout.NORTH, lblCopyrightOfZack);
+		baseLayout.putConstraint(SpringLayout.SOUTH, chatPane, -21, SpringLayout.NORTH, lblCopyrightOfZack);
 		lblCopyrightOfZack.setForeground(new Color(255, 255, 255));
 		baseLayout.putConstraint(SpringLayout.WEST, lblCopyrightOfZack, 10, SpringLayout.WEST, this);
 		baseLayout.putConstraint(SpringLayout.SOUTH, lblCopyrightOfZack, 0, SpringLayout.SOUTH, this);
 		add(lblCopyrightOfZack);
 		
 		chatField = new JTextField();
-		baseLayout.putConstraint(SpringLayout.WEST, chatField, 4, SpringLayout.WEST, chatArea);
-		baseLayout.putConstraint(SpringLayout.SOUTH, chatField, -24, SpringLayout.NORTH, chatArea);
-		baseLayout.putConstraint(SpringLayout.EAST, chatField, 0, SpringLayout.EAST, chatArea);
+		baseLayout.putConstraint(SpringLayout.WEST, chatPane, 0, SpringLayout.WEST, chatField);
+		baseLayout.putConstraint(SpringLayout.EAST, chatPane, 0, SpringLayout.EAST, chatField);
+		baseLayout.putConstraint(SpringLayout.WEST, chatField, 53, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.SOUTH, chatField, -124, SpringLayout.NORTH, lblCopyrightOfZack);
+		baseLayout.putConstraint(SpringLayout.EAST, chatField, -49, SpringLayout.EAST, this);
 		add(chatField);
 		chatField.setColumns(10);
 	}

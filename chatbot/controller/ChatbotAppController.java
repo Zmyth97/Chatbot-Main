@@ -33,6 +33,10 @@ public class ChatbotAppController
 		quitMessage = "Goodbye Cruel User :(";
 	}
 	
+	/**
+	 * Gets SillyChatbot
+	 * @return SillyChatbot
+	 */
 	public Chatbot getMySillyChatbot()
 	{
 		return mySillyChatbot;
@@ -49,6 +53,11 @@ public class ChatbotAppController
        	
 	}
 	
+	/**
+	 * Controls the text processing. 
+	 * @param input The user response
+	 * @return the result after process text
+	 */
 	public String getChatbotDialog(String input)
 	{
 		String result = "";
