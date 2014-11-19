@@ -117,145 +117,188 @@ public class Chatbot
 	public String processText(String currentInput)
 	{
 		String result = "";
+		if (getChatCount() < 4)
+		{
+			result = introduceUser(currentInput);
+		}
+		else if (getChatCount() > 7 || getChatCount() < 12)
+		{
+			result = talkAboutUser(currentInput);
+		}
+		else if (currentInput != null &&currentInput.length() > 0)
+		{
+			result = randomChatConversation(currentInput);
+		}
+		
+		else
+		{
+			result = "use words!";
+			chatCount--;
+		}
+		updateChatCount();
+		return result;
+	}
+
+	/**
+	 * Part of process text that asks about the user for later
+	 * @param input
+	 * @return
+	 */
+	private String introduceUser(String input)
+	{
+		String userQuestion = "";
 
 		if (getChatCount() < 4)
 		{
 			if (getChatCount() == 0)
 			{
-				myUser.setUserName(currentInput);
-				result = "How many girls have you kissed?";
+				myUser.setUserName(input);
+				userQuestion = "How many girls have you kissed?";
 			}
 			else if (getChatCount() == 1)
 			{
 				try
 				{
-					myUser.setGirlsKissed(Integer.parseInt(currentInput));
+					myUser.setGirlsKissed(Integer.parseInt(input));
 				}
 				catch (NumberFormatException p)
 				{
 					return "Sorry, didn't catch that. How many girls have you kissed?";
 				}
-				result = "Thats a lot! Do you like Soccer? (Yes/No)";
+				userQuestion = "Thats a lot! Do you like Soccer? (Yes/No)";
 			}
 			else if (getChatCount() == 2)
 			{
-				myUser.setLikesSoccer(currentInput.toLowerCase().startsWith("y") ? true : false);
-				result = myUser.isLikesSoccer() ? "That's great me too! " : "That's too bad... ";
-				result = result.concat("Do you like to make out with girls?");
+				myUser.setLikesSoccer(input.toLowerCase().startsWith("y") ? true : false);
+				userQuestion = myUser.isLikesSoccer() ? "That's great me too! " : "That's too bad... ";
+				userQuestion = userQuestion.concat("Do you like to make out with girls?");
 			}
 			else if (getChatCount() == 3)
 			{
-				myUser.setLikesToMakeOut(currentInput.toLowerCase().startsWith("y") ? true : false);
-				result = "Very nice. Just be careful out there......";
+				myUser.setLikesToMakeOut(input.toLowerCase().startsWith("y") ? true : false);
+				userQuestion = "Very nice. Just be careful out there......";
 			}
 		}
 
-		else if (currentInput != null)
-		{
-			int randomPosition = (int) (Math.random() * 6);
+		return userQuestion;
+	}
 
-			if (randomPosition == 0)
+	/**
+	 * Part of process text that randomly talks about the user
+	 * @param input
+	 * @return
+	 */
+	private String talkAboutUser(String input)
+	{
+		String talkAbout = "";
+		
+			if (getChatCount() == 8)
 			{
-				if (stringChecker(currentInput))
+				myUser.getUserName();
+				talkAbout = "Why did you parents name you " + myUser.getUserName() + "?";
+			}
+			if (getChatCount() == 9)
+			{
+				myUser.getGirlsKissed();
+				if (myUser.getGirlsKissed() == 0)
 				{
-					result = "too long";
+
+					talkAbout = "You haven't kissed any girls? Why not!";
+				}
+				else if (myUser.getGirlsKissed() >= 0)
+				{
+
+					talkAbout = "You've only kissed " + myUser.getGirlsKissed() + " girls? You should kiss more!";
+				}
+			}
+			if (getChatCount() == 10)
+			{
+				myUser.isLikesSoccer();
+				if (myUser.isLikesSoccer() == true)
+				{
+					talkAbout = "What do you like about soccer?";
 				}
 				else
 				{
-					result = "short words";
+					talkAbout = "I\'m sorry, but you\'re a horrible human. Why don't you like soccer?";
+				}
+			}
+			if (getChatCount() == 11)
+			{
+				myUser.isLikesToMakeOut();
+				if (myUser.isLikesToMakeOut() == true)
+				{
+					talkAbout = "So...you like to make out? Who do you make out with?";
+				}
+				else
+				{
+					talkAbout = "I bet the only reason you don't like to make out is because you haven't yet ;)";
+				}
+			}
+		return talkAbout;
+	}
+	
+	/**
+	 * Takes the user input and randomly checks it against the 3 checkers
+	 * @param input
+	 * @return
+	 */
+	private String randomChatConversation(String input)
+	{
+		String conversation = "";
+
+			int randomPosition = (int) (Math.random() * 5);
+
+			if (randomPosition == 0)
+			{
+				if (stringChecker(input))
+				{
+					conversation = "too long";
+				}
+				else
+				{
+					conversation = "short words";
 				}
 			}
 			else if (randomPosition == 1)
 			{
-				if (contentChecker(currentInput))
+				if (contentChecker(input))
 				{
-					result = "yup you know the secret";
+					conversation = "yup you know the secret";
 				}
 				else
 				{
-					result = "try again another time";
+					conversation = "try again another time";
 				}
 			}
 			else if (randomPosition == 2)
 			{
-				if (memeChecker(currentInput))
+				if (memeChecker(input))
 				{
-					result = "Wow, " + currentInput + " is a meme, wahoo!";
+					conversation = "Wow, " + input + " is a meme, wahoo!";
 				}
 				else
 				{
-					result = "Not a meme, try again";
+					conversation = "Not a meme, try again";
 				}
 			}
 			else if (randomPosition == 3)
 			{
-				if (getChatCount() == 8)
-				{
-					myUser.getUserName();
-					result = "Why did you parents name you " + myUser.getUserName() + "?";
-				}
-				if (getChatCount() == 9)
-				{
-					myUser.getGirlsKissed();
-					if (myUser.getGirlsKissed() == 0)
-					{
-
-						result = "You haven't kissed any girls? Why not!";
-					}
-					else if (myUser.getGirlsKissed() >= 0)
-					{
-
-						result = "You've only kissed " + myUser.getGirlsKissed() + " girls? You should kiss more!";
-					}
-				}
-				if (getChatCount() == 10)
-				{
-					myUser.isLikesSoccer();
-					if (myUser.isLikesSoccer() == true)
-					{
-						result = "What do you like about soccer?";
-					}
-					else
-					{
-						result = "I\'m sorry, but you\'re a horrible human. Why don't you like soccer?";
-					}
-				}
-				if (getChatCount() == 11)
-				{
-					myUser.isLikesToMakeOut();
-					if (myUser.isLikesToMakeOut() == true)
-					{
-						result = "So...you like to make out? Who do you make out with?";
-					}
-					else
-					{
-						result = "I bet the only reason you don't like to make out is because you haven't yet ;)";
-					}
-				}
-			}
-			else if (randomPosition == 4)
-			{
 				// Add to list
-				if (userInputChecker(currentInput))
+				if (userInputChecker(input))
 				{
-					userInputList.add(currentInput);
-					result = "Thank you for the comment";
+					userInputList.add(input);
+					conversation = "Thank you for the comment";
 				}
 
-				else if (randomPosition == 5)
+				else if (randomPosition == 4)
 				{
 					// Remove from List
 				}
 
 			}
-		}
-
-		else
-		{
-			result = "use words!";
-		}
-		updateChatCount();
-		return result;
+		
+		return conversation;
 	}
 
 	/**

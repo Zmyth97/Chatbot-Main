@@ -66,6 +66,7 @@ public class ChatbotPanel extends JPanel
 	{
 		chatArea.setLineWrap(true);
 		chatArea.setWrapStyleWord(true);
+		chatArea.setEditable(false);
 	}
 	
 	/**
@@ -132,6 +133,7 @@ public class ChatbotPanel extends JPanel
 				showTextMessage(currentInput);
 				showTextMessage(result);
 				chatField.setText("");
+				chatField.requestFocus();
 			}
 		});
 	}
