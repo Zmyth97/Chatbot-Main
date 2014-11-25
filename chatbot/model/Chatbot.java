@@ -71,8 +71,7 @@ public class Chatbot
 	/**
 	 * Sets the User info in Chatbot User
 	 * 
-	 * @param the
-	 *            user
+	 * @param the user
 	 */
 	public void setMyUser(ChatbotUser myUser)
 	{
@@ -186,7 +185,7 @@ public class Chatbot
 	/**
 	 * Part of process text that randomly talks about the user
 	 * @param input
-	 * @return
+	 * @return Conversation about the user
 	 */
 	private String talkAboutUser(String input)
 	{
@@ -194,12 +193,10 @@ public class Chatbot
 		
 			if (getChatCount() == 8)
 			{
-				myUser.getUserName();
 				talkAbout = "Why did you parents name you " + myUser.getUserName() + "?";
 			}
 			if (getChatCount() == 9)
 			{
-				myUser.getGirlsKissed();
 				if (myUser.getGirlsKissed() == 0)
 				{
 
@@ -213,7 +210,6 @@ public class Chatbot
 			}
 			if (getChatCount() == 10)
 			{
-				myUser.isLikesSoccer();
 				if (myUser.isLikesSoccer() == true)
 				{
 					talkAbout = "What do you like about soccer?";
@@ -225,7 +221,6 @@ public class Chatbot
 			}
 			if (getChatCount() == 11)
 			{
-				myUser.isLikesToMakeOut();
 				if (myUser.isLikesToMakeOut() == true)
 				{
 					talkAbout = "So...you like to make out? Who do you make out with?";
@@ -247,7 +242,7 @@ public class Chatbot
 	{
 		String conversation = "";
 
-			int randomPosition = (int) (Math.random() * 5);
+			int randomPosition = (int) (Math.random() * 6);
 
 			if (randomPosition == 0)
 			{
@@ -290,15 +285,75 @@ public class Chatbot
 					userInputList.add(input);
 					conversation = "Thank you for the comment";
 				}
-
 				else if (randomPosition == 4)
 				{
-					// Remove from List
+					if(mashChecker(input))
+					{
+						conversation = mashingDetected(input);
+					}
+					else
+					{
+						conversation = noMashingDetected(input);
+					}
+				}
+
+				else
+				{
+					if (userInputChecker(input))
+					{
+						conversation = "That was nice - you removed it from the list";
+					}
+					else
+					{
+						conversation = "That wasn't in the conversation before";
+					}
 				}
 
 			}
 		
 		return conversation;
+	}
+	
+	private String mashingDetected(String input)
+	{
+		String mashed = "";
+		
+		mashed = input.substring(input.length()/2);
+		mashed += input.substring(input.length()/2);
+		mashed += input.substring(input.length()/2);
+		mashed += input.substring(input.length()/2);
+		mashed += input.substring(input.length()/2);
+		
+		return mashed;
+	}
+	
+	private String noMashingDetected(String input)
+	{
+		String noMashing = "Thank you for not mashing your keyboard with ";
+		if (input.length() > 1)
+		{
+		noMashing += input.substring(input.length()/3, input.length()/2);
+		}
+		
+		return noMashing;
+	}
+	
+	/**
+	 * Checker for keyboard mashing
+	 * @param userInput The user supplied text
+	 * @return Whether mashing has been detected
+	 */
+	public boolean mashChecker(String userInput)
+	{
+		boolean isMashing = false;
+		
+		if (userInput.indexOf("sdf") > -1)
+		{
+			isMashing = true;
+		}
+			
+		
+		return isMashing;
 	}
 
 	/**
@@ -392,6 +447,7 @@ public class Chatbot
 
 		return isTopicOfInterest;
 	}
+	
 
 	/**
 	 * Checks to see if it is ok to quit the application.

@@ -5,7 +5,6 @@ import javax.swing.JOptionPane;
 import chatbot.model.Chatbot;
 import chatbot.view.ChatbotFrame;
 import chatbot.view.ChatbotPanel;
-import chatbot.view.ChatbotView;
 
 /**
  * Runs the Chatbot Project. Owns the model and associated views.
@@ -15,7 +14,7 @@ import chatbot.view.ChatbotView;
 
 public class ChatbotAppController 
 {
-	private ChatbotView applicationView;
+
 	private Chatbot mySillyChatbot;
 	private String startMessage;
 	private String quitMessage;	
@@ -26,7 +25,6 @@ public class ChatbotAppController
 	 */
 	public ChatbotAppController()
 	{
-		applicationView = new ChatbotView(this);
 		appFrame = new ChatbotFrame(this);
 		mySillyChatbot = new Chatbot("Royal");
 		startMessage = "Welcome to the " + mySillyChatbot.getName() + " Chatbot. What is your name?";
@@ -75,7 +73,6 @@ public class ChatbotAppController
 	 */
 	private void quit()
 	{
-		applicationView.showChatbotMessage(quitMessage);
 		System.exit(0);
 	}
 }
