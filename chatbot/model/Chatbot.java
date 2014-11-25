@@ -120,15 +120,16 @@ public class Chatbot
 		{
 			result = introduceUser(currentInput);
 		}
-		else if (getChatCount() > 7 || getChatCount() < 12)
+		else if (getChatCount() > 4 && getChatCount() < 7)
 		{
 			result = talkAboutUser(currentInput);
+
 		}
-		else if (currentInput != null &&currentInput.length() > 0)
+		else if (currentInput != null && currentInput.length() > 0)
 		{
 			result = randomChatConversation(currentInput);
+
 		}
-		
 		else
 		{
 			result = "use words!";
@@ -191,7 +192,7 @@ public class Chatbot
 	{
 		String talkAbout = "";
 		
-			if (getChatCount() == 8)
+			if (getChatCount() == 4)
 			{
 				talkAbout = "Why did you parents name you " + myUser.getUserName() + "?";
 			}
@@ -208,7 +209,7 @@ public class Chatbot
 					talkAbout = "You've only kissed " + myUser.getGirlsKissed() + " girls? You should kiss more!";
 				}
 			}
-			if (getChatCount() == 10)
+			if (getChatCount() == 5)
 			{
 				if (myUser.isLikesSoccer() == true)
 				{
@@ -219,7 +220,7 @@ public class Chatbot
 					talkAbout = "I\'m sorry, but you\'re a horrible human. Why don't you like soccer?";
 				}
 			}
-			if (getChatCount() == 11)
+			if (getChatCount() == 6)
 			{
 				if (myUser.isLikesToMakeOut() == true)
 				{
@@ -227,7 +228,7 @@ public class Chatbot
 				}
 				else
 				{
-					talkAbout = "I bet the only reason you don't like to make out is because you haven't yet ;)";
+					talkAbout = "So, I bet the only reason you don't like to make out with girls is because you haven't yet ;)";
 				}
 			}
 		return talkAbout;
@@ -310,7 +311,6 @@ public class Chatbot
 				}
 
 			}
-		
 		return conversation;
 	}
 	

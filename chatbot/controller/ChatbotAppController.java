@@ -9,7 +9,7 @@ import chatbot.view.ChatbotPanel;
 /**
  * Runs the Chatbot Project. Owns the model and associated views.
  * @author Zack Moss
- * @Version 1.2 10/2/14
+ * @version 1.2 10/2/14
  */
 
 public class ChatbotAppController 
