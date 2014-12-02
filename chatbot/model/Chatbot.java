@@ -69,9 +69,8 @@ public class Chatbot
 	}
 
 	/**
-	 * Sets the User info in Chatbot User
-	 * 
-	 * @param the user
+	 * The setter for the user.
+	 * @param myUser The new user.
 	 */
 	public void setMyUser(ChatbotUser myUser)
 	{
@@ -142,7 +141,7 @@ public class Chatbot
 	/**
 	 * Part of process text that asks about the user for later
 	 * @param input
-	 * @return
+	 * @return The user's next question.
 	 */
 	private String introduceUser(String input)
 	{
@@ -237,7 +236,7 @@ public class Chatbot
 	/**
 	 * Takes the user input and randomly checks it against the 3 checkers
 	 * @param input
-	 * @return
+	 * @return The next random topic.
 	 */
 	private String randomChatConversation(String input)
 	{
@@ -313,7 +312,11 @@ public class Chatbot
 			}
 		return conversation;
 	}
-	
+	/**
+	 * Checks to see if the user mashes the keyboard
+	 * @param input The user's input
+	 * @return If the input was mashing the keyboard
+	 */
 	private String mashingDetected(String input)
 	{
 		String mashed = "";
@@ -326,7 +329,11 @@ public class Chatbot
 		
 		return mashed;
 	}
-	
+	/**
+	 * If there is no mashing detected in the user's input
+	 * @param input The user's input
+	 * @return The string showing there was no mashing.
+	 */
 	private String noMashingDetected(String input)
 	{
 		String noMashing = "Thank you for not mashing your keyboard with ";
@@ -365,6 +372,11 @@ public class Chatbot
 		chatCount++;
 	}
 
+	/**
+	 * Checks the user input in the list
+	 * @param userInput The user's text
+	 * @return If it matches the input
+	 */
 	private boolean userInputChecker(String userInput)
 	{
 		boolean matchesInput = false;

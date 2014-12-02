@@ -14,11 +14,18 @@ import chatbot.view.ChatbotPanel;
 
 public class ChatbotAppController 
 {
-
+	/**
+	 * Gets the silly chatbot
+	 */
 	private Chatbot mySillyChatbot;
-	private String startMessage;
-	private String quitMessage;	
+	/**
+	 * Calls the frame from Chatbot Frame
+	 */
 	private ChatbotFrame appFrame;
+	/**
+	 * Sets the start message for when the app starts
+	 */
+	private String startMessage;
 	
 	/**
 	 * Constructor for the AppController. Initializes the Model and View Components
@@ -28,7 +35,6 @@ public class ChatbotAppController
 		appFrame = new ChatbotFrame(this);
 		mySillyChatbot = new Chatbot("Royal");
 		startMessage = "Welcome to the " + mySillyChatbot.getName() + " Chatbot. What is your name?";
-		quitMessage = "Goodbye Cruel User :(";
 	}
 	
 	/**
@@ -41,7 +47,7 @@ public class ChatbotAppController
 	}
 	
 	/**
-	 * Main part of program, runs app.
+	 * Main part of program, runs the app.
 	 */
 	
 	public void start()

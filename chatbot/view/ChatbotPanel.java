@@ -138,6 +138,10 @@ public class ChatbotPanel extends JPanel
 		});
 	}
 	
+	/**
+	 * Adds the processed text to the end of the chatArea.
+	 * @param userInput The processed text
+	 */
 	public void showTextMessage(String userInput)
 	{
 		chatArea.append("\n" + userInput);

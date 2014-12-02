@@ -8,10 +8,21 @@ package chatbot.model;
  */
 public class ChatbotUser
 {
-
+	/**
+	 * The string of the user's name
+	 */
 	private String userName;
+	/**
+	 * The amount of girls they have kissed
+	 */
 	private int girlsKissed;
+	/** 
+	 * Boolean for if the user likes to play soccer
+	 */
 	private boolean likesSoccer;
+	/**
+	 * The Boolean for if the user likes to make out
+	 */
 	private boolean likesToMakeOut;
 
 	/**
